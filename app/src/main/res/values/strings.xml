@@ -2,7 +2,16 @@
     <string name="app_name">Do_it</string>
     <string name="task">Task</string>
     <string name="todo">TODO</string>
-    <string name="new_task">new_task</string>
+    <string name="new_task">New Task</string>
     <string name="save">save</string>
     <string name="logo">logo</string>
+    <string name="task_title">Task Title</string>
+    <string name="enter_task_title">Enter Task title</string>
+    <string name="what_is_to_be_done">What is to be done?</string>
+    <string name="enter_your_task">Detail your Task</string>
+    <string name="set_reminder_date_and_time">Set reminder date and time</string>
+    <string name="set_date">Set Date</string>
+    <string name="save_task">SAVE TASK</string>
+    <string name="set_time">Set Time</string>
+    <string name="category">Category</string>
 </resources>

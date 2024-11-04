@@ -9,15 +9,18 @@
 
     <TextView
         android:id="@+id/tasksText"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:paddingStart="16sp"
+        android:paddingTop="8sp"
+        android:paddingBottom="8sp"
         android:layout_marginBottom="16dp"
+        android:background="@color/colorPrimaryDark"
         android:text="@string/task"
         android:textColor="@android:color/black"
         android:textSize="32sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:ignore="RtlSymmetry" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasksRecyclerView"
@@ -31,7 +34,7 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="32dp"
         android:backgroundTint="@android:color/holo_green_dark"

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".newTask">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:paddingStart="16sp"
+        android:paddingTop="8sp"
+        android:paddingBottom="8sp"
+        android:text="@string/new_task"
+        android:textColor="@android:color/black"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        tools:ignore="RtlSymmetry" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="16sp"
+        android:paddingRight="16sp">
+
+        <!-- Task Title -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/task_title"
+            android:textColor="@android:color/holo_orange_dark" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="Make a task title"
+            android:background="@drawable/edit_text_background"
+            android:hint="@string/enter_task_title"
+            android:inputType="text"
+            android:padding="10dp" />
+
+        <!-- Task Details -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/what_is_to_be_done"
+            android:textColor="@android:color/holo_orange_dark" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="100sp"
+            android:autofillHints="details"
+            android:background="@drawable/edit_text_background"
+            android:gravity="top|start"
+            android:hint="@string/enter_your_task"
+            android:inputType="text"
+            android:padding="10dp" />
+
+        <!-- Category Dropdown -->
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/category"
+            android:textColor="@android:color/holo_orange_dark" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="30sp"
+            android:entries="@array/task_categories" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/set_reminder_date_and_time"
+            android:textColor="@android:color/holo_orange_dark" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Button chọn ngày -->
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/ic_calendar"
+                android:padding="10dp"
+                android:text="@string/set_date" />
+
+            <!-- Khoảng cách giữa hai nút -->
+            <Space
+                android:layout_width="8dp"
+                android:layout_height="wrap_content" />
+
+            <!-- Button chọn giờ -->
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/ic_clock"
+                android:padding="10dp"
+                android:text="@string/set_time" />
+        </LinearLayout>
+
+
+        <!-- Save Button -->
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@android:color/holo_orange_dark"
+            android:text="@string/save_task"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+</LinearLayout>
