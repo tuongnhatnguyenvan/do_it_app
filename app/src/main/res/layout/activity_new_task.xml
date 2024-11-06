@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
         android:paddingStart="16sp"
-        android:paddingTop="8sp"
+        android:paddingTop="16sp"
         android:paddingBottom="8sp"
         android:text="@string/new_task"
         android:textColor="@android:color/black"
@@ -91,6 +91,7 @@
 
             <!-- Button chọn ngày -->
             <Button
+                android:id="@+id/date_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -105,6 +106,7 @@
 
             <!-- Button chọn giờ -->
             <Button
+                 android:id="@+id/time_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

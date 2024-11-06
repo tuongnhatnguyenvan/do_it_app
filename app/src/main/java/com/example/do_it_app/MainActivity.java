@@ -2,6 +2,7 @@ package com.example.do_it_app;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -32,9 +33,10 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        if (getSupportActionBar() != null) {
-            Objects.requireNonNull(getSupportActionBar()).hide();
-        }
+//        if (getSupportActionBar() != null) {
+//            Objects.requireNonNull(getSupportActionBar()).hide();
+//        }
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.task);
 
         db = new DatabaseHandler(this);
         db.openDatabase();
@@ -53,7 +55,11 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         taskList = db.getAllTasks();
         Collections.reverse(taskList);
         tasksAdapter.setTasks(taskList);
-        fab.setOnClickListener(v -> AddNewTask.newInstance().show(getSupportFragmentManager(), AddNewTask.TAG));
+//        fab.setOnClickListener(v -> AddNewTask.newInstance().show(getSupportFragmentManager(), AddNewTask.TAG));
+        fab.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, newTask.class);
+            startActivity(intent);
+        });
     }
 
     @SuppressLint("NotifyDataSetChanged")
