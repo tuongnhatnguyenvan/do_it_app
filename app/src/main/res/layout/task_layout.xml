@@ -9,20 +9,83 @@
     app:cardElevation="4dp">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:padding="16dp">
 
         <CheckBox
             android:id="@+id/todoCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
             android:buttonTint="@android:color/holo_green_dark"
-            android:paddingStart="8dp"
-            tools:text="Go to the market and bring vegetables immediately today."
+            android:paddingEnd="8dp"
             tools:ignore="RtlSymmetry" />
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/taskTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/todoCheckBox"
+            android:text="@string/task_title"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/taskDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/taskTitle"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_toEndOf="@id/todoCheckBox"
+            android:text="@string/task_details_go_here"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/taskCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/taskDetails"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@id/todoCheckBox"
+            android:text="@string/category_work"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/taskCategory"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@id/todoCheckBox"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/reminderDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date_yyyy_mm_dd"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="14sp" />
+
+            <Space
+                android:layout_width="16dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/reminderTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/time_hh_mm"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>

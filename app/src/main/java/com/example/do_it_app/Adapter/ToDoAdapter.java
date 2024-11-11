@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,8 +44,12 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         db.openDatabase();
         final ToDoModel item = todoList.get(position);
-        holder.task.setText(item.getTask());
+        holder.taskTitle.setText(item.getTask());
         holder.task.setChecked(toBoolean(item.getStatus()));
+        holder.detail.setText(item.getDetail());
+        holder.taskCategories.setText(item.getTask_category());
+        holder.dateTextView.setText(item.getDate());
+        holder.timeTextView.setText(item.getTime());
         holder.task.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 db.updateStatus(item.getId(), 1);
@@ -66,10 +72,20 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         CheckBox task;
+        TextView taskTitle;
+        TextView dateTextView;
+        TextView timeTextView;
+        TextView detail;
+        TextView taskCategories;
 
         ViewHolder(View view) {
             super(view);
             task = view.findViewById(R.id.todoCheckBox);
+            taskTitle = view.findViewById(R.id.taskTitle);
+            detail = view.findViewById(R.id.taskDetails);
+            taskCategories = view.findViewById(R.id.taskCategory);
+            dateTextView = view.findViewById(R.id.reminderDate);
+            timeTextView = view.findViewById(R.id.reminderTime);
         }
     }
 
@@ -93,6 +109,10 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         Bundle bundle = new Bundle();
         bundle.putInt("id", item.getId());
         bundle.putString("task", item.getTask());
+        bundle.putString("detail", item.getDetail());
+        bundle.putString("date", item.getDate());
+        bundle.putString("time", item.getTime());
+        bundle.putString("task_category", item.getTask_category());
         AddNewTask fragment = new AddNewTask();
         fragment.setArguments(bundle);
         fragment.show(activity.getSupportFragmentManager(), AddNewTask.TAG);

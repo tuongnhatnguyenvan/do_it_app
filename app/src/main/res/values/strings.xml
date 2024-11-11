@@ -14,4 +14,8 @@
     <string name="save_task">SAVE TASK</string>
     <string name="set_time">Set Time</string>
     <string name="category">Category</string>
+    <string name="task_details_go_here">Task details go here</string>
+    <string name="date_yyyy_mm_dd">Date: yyyy-mm-dd</string>
+    <string name="time_hh_mm">Time: hh:mm</string>
+    <string name="category_work">Category: Work</string>
 </resources>
