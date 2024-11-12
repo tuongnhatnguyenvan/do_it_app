@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import com.example.do_it_app.Model.ToDoModel;
 import com.example.do_it_app.Utils.DatabaseHandler;
 
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.Objects;
 
 public class newTask extends AppCompatActivity {
@@ -103,6 +105,16 @@ public class newTask extends AppCompatActivity {
             return;
         }
 
+        if (date.isEmpty() || date.equals("Set Date")) {
+            date = getCurrentDate();
+            dateTextView.setText(date);
+        }
+
+        if (time.isEmpty() || time.equals("Set Time")) {
+            time = getCurrentTime();
+            timeTextView.setText(time);
+        }
+
         if (isEditMode) {
             dbHandler.updateTask(taskId, taskTitle, taskDetails, category, date, time);
         } else {
@@ -134,6 +146,16 @@ public class newTask extends AppCompatActivity {
                         timeTextView.setText(String.format("%02d:%02d", hourOfDay, minute)),
                 calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true)
                 .show();
+    }
+
+    private String getCurrentDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        return dateFormat.format(Calendar.getInstance().getTime());
+    }
+
+    private String getCurrentTime() {
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        return timeFormat.format(Calendar.getInstance().getTime());
     }
 
     @Override

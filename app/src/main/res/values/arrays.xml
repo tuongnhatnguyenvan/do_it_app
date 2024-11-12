@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="task_categories">
+        <item>Personal</item>
         <item>Banking</item>
         <item>Business</item>
         <item>Insurance</item>
-        <item>Personal</item>
         <item>Shopping</item>
     </string-array>
 </resources>
