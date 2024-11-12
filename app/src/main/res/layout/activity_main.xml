@@ -22,6 +22,15 @@
         android:textStyle="bold"
         tools:ignore="RtlSymmetry" />
 
+    <TextView
+        android:id="@+id/no_tasks_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_task_yet"
+        android:textSize="18sp"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasksRecyclerView"
         android:layout_width="match_parent"

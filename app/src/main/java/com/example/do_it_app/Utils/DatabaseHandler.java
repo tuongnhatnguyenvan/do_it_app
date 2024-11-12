@@ -120,4 +120,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.delete(TODO_TABLE, ID + "= ?", new String[]{String.valueOf(id)});
     }
 
+    public void deleteAllTasks() {
+        openDatabase();
+        db.execSQL("DELETE FROM " + TODO_TABLE);
+    }
+
+    public void deleteCompletedTasks() {
+        db.delete(TODO_TABLE, STATUS + " = ?", new String[]{"1"});
+    }
 }

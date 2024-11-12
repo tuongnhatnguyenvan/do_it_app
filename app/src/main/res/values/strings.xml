@@ -18,4 +18,7 @@
     <string name="date_yyyy_mm_dd">Date: yyyy-mm-dd</string>
     <string name="time_hh_mm">Time: hh:mm</string>
     <string name="category_work">Category: Work</string>
+    <string name="no_task_yet">No Task Yet</string>
+    <string name="delete_all">Delete all</string>
+    <string name="delete_completed">Delete completed</string>
 </resources>
