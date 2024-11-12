@@ -2,31 +2,29 @@ package com.example.do_it_app.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Bundle;
-import android.text.Layout;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.do_it_app.AddNewTask;
 import com.example.do_it_app.MainActivity;
 import com.example.do_it_app.Model.ToDoModel;
 import com.example.do_it_app.R;
 import com.example.do_it_app.Utils.DatabaseHandler;
+import com.example.do_it_app.newTask;
+//import com.google.gson.Gson;
 
 import java.util.List;
 
 public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
     private List<ToDoModel> todoList;
-    private MainActivity activity;
-    private DatabaseHandler db;
+    private final MainActivity activity;
+    private final DatabaseHandler db;
 
     public ToDoAdapter(DatabaseHandler db, MainActivity activity) {
         this.db = db;
@@ -106,15 +104,21 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
 
     public void editItem(int position) {
         ToDoModel item = todoList.get(position);
-        Bundle bundle = new Bundle();
-        bundle.putInt("id", item.getId());
-        bundle.putString("task", item.getTask());
-        bundle.putString("detail", item.getDetail());
-        bundle.putString("date", item.getDate());
-        bundle.putString("time", item.getTime());
-        bundle.putString("task_category", item.getTask_category());
-        AddNewTask fragment = new AddNewTask();
-        fragment.setArguments(bundle);
-        fragment.show(activity.getSupportFragmentManager(), AddNewTask.TAG);
+
+//        Gson gson = new Gson();
+//        String json = gson.toJson(item);
+//        Log.d("Edit Item debug: ", json);
+
+        Intent intent = new Intent(activity, newTask.class);
+
+        intent.putExtra("id", item.getId());
+        intent.putExtra("task", item.getTask());
+        intent.putExtra("detail", item.getDetail());
+        intent.putExtra("date", item.getDate());
+        intent.putExtra("time", item.getTime());
+        intent.putExtra("task_category", item.getTask_category());
+
+        activity.startActivity(intent);
+
     }
 }

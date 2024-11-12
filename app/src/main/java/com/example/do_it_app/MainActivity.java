@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements DialogCloseListener {
+
     private RecyclerView tasksRecyclerView;
     private ActivityResultLauncher<Intent> newTaskLauncher;
     private ToDoAdapter tasksAdapter;
@@ -39,25 +40,39 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
 
         Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.task);
 
+        initializeDatabase();
+        initializeViews();
+        initializeRecyclerView();
+        initializeActivityResultLauncher();
+        loadTasksFromDB();
+
+        fab.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, newTask.class);
+            newTaskLauncher.launch(intent);
+        });
+    }
+
+    private void initializeDatabase() {
         db = new DatabaseHandler(this);
         db.openDatabase();
-
         taskList = new ArrayList<>();
+    }
 
+    private void initializeViews() {
+        fab = findViewById(R.id.fab);
         tasksRecyclerView = findViewById(R.id.tasksRecyclerView);
+    }
+
+    private void initializeRecyclerView() {
         tasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         tasksAdapter = new ToDoAdapter(db, this);
         tasksRecyclerView.setAdapter(tasksAdapter);
 
-        fab = findViewById(R.id.fab);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new RecyclerItemTouchHelper(tasksAdapter));
         itemTouchHelper.attachToRecyclerView(tasksRecyclerView);
+    }
 
-        taskList = db.getAllTasks();
-        Collections.reverse(taskList);
-
-        loadTasksFromDB();
-
+    private void initializeActivityResultLauncher() {
         newTaskLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -66,16 +81,8 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
                     }
                 }
         );
-
-        tasksAdapter.setTasks(taskList);
-
-        fab.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, newTask.class);
-            newTaskLauncher.launch(intent);
-        });
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void handleDialogClose(DialogInterface dialog) {
         loadTasksFromDB();
@@ -83,17 +90,16 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
 
     @SuppressLint("NotifyDataSetChanged")
     private void loadTasksFromDB() {
-        taskList = db.getAllTasks();
+        taskList.clear();
+        taskList.addAll(db.getAllTasks());
         Collections.reverse(taskList);
         tasksAdapter.setTasks(taskList);
         tasksAdapter.notifyDataSetChanged();
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            loadTasksFromDB();
-        }
+    protected void onResume() {
+        super.onResume();
+        loadTasksFromDB();
     }
 }

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.do_it_app.Model.ToDoModel;
 
@@ -111,6 +112,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cv.put(TASK_CATEGORIES, taskCategories);
         cv.put(DATE, date);
         cv.put(TIME, time);
+        Log.d("ContentValues", cv.toString());
         db.update(TODO_TABLE, cv, ID + "= ?", new String[]{String.valueOf(id)});
     }
 

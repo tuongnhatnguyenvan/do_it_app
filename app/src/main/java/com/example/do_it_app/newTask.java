@@ -5,7 +5,6 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -22,95 +21,109 @@ import java.util.Objects;
 
 public class newTask extends AppCompatActivity {
 
-    private EditText taskTitle;
-    private EditText detailText;
-    private Spinner taskCategoriesSpinner;
-    private TextView dateText;
-    private TextView timeText;
+    private EditText taskTitleEditText;
+    private EditText taskDetailsEditText;
+    private Spinner taskCategorySpinner;
+    private TextView dateTextView;
+    private TextView timeTextView;
     private Button saveButton;
     private boolean isEditMode = false;
     private int taskId;
     private DatabaseHandler dbHandler;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_new_task);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.new_task);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
-        // Initialize
+        setupActionBar();
         initializeViews();
-
-        dateText.setOnClickListener(v -> showDatePickerDialog());
-        timeText.setOnClickListener(v -> showTimePickerDialog());
+        setupListeners();
 
         dbHandler = new DatabaseHandler(this);
         dbHandler.openDatabase();
 
-        saveButton.setOnClickListener(v -> saveTask());
+        handleIntentData();
     }
 
-    private void showDatePickerDialog() {
-        final Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-                (view, selectedYear, selectedMonth, selectedDay) -> {
-                    String date = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
-                    dateText.setText(date);
-                }, year, month, day);
-        datePickerDialog.show();
+    private void setupActionBar() {
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.new_task);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void initializeViews() {
-        taskTitle = findViewById(R.id.taskTitle);
-        detailText = findViewById(R.id.taskDetailsType);
-        taskCategoriesSpinner = findViewById(R.id.spinner);
-        dateText = findViewById(R.id.date_text);
-        timeText = findViewById(R.id.time_text);
+        taskTitleEditText = findViewById(R.id.taskTitle);
+        taskDetailsEditText = findViewById(R.id.taskDetailsType);
+        taskCategorySpinner = findViewById(R.id.spinner);
+        dateTextView = findViewById(R.id.date_text);
+        timeTextView = findViewById(R.id.time_text);
         saveButton = findViewById(R.id.save_button);
     }
 
-    private void saveTask(){
-        String task = taskTitle.getText().toString();
-        String detail = detailText.getText().toString();
-        String category = taskCategoriesSpinner.getSelectedItem().toString();
-        String date = dateText.getText().toString();
-        String time = timeText.getText().toString();
+    private void setupListeners() {
+        dateTextView.setOnClickListener(v -> showDatePickerDialog());
+        timeTextView.setOnClickListener(v -> showTimePickerDialog());
+        saveButton.setOnClickListener(v -> saveTask());
+    }
 
-        Log.d("new_TASK", "Task: " + task);
-        Log.d("new_TASK", "Detail: " + detail);
-        Log.d("new_TASK", "Category: " + category);
-        Log.d("new_TASK", "Date: " + date);
-        Log.d("new_TASK", "Time: " + time);
+    private void handleIntentData() {
+        Intent intent = getIntent();
+        if (intent == null || !intent.hasExtra("id")) return;
 
-        if(isEditMode){
-            dbHandler.updateTask(taskId,task,detail,category,date, time);
-        }else {
-            ToDoModel newTask = new ToDoModel(task, detail,category, date, time);
+        isEditMode = true;
+        taskId = intent.getIntExtra("id", -1);
+        taskTitleEditText.setText(intent.getStringExtra("task"));
+        taskDetailsEditText.setText(intent.getStringExtra("detail"));
+        dateTextView.setText(intent.getStringExtra("date"));
+        timeTextView.setText(intent.getStringExtra("time"));
+        setCategorySelection(intent.getStringExtra("task_category"));
+    }
+
+    private void setCategorySelection(String taskCategory) {
+        String[] categories = getResources().getStringArray(R.array.task_categories);
+        for (int i = 0; i < categories.length; i++) {
+            if (categories[i].equals(taskCategory)) {
+                taskCategorySpinner.setSelection(i);
+                break;
+            }
+        }
+    }
+
+    private void saveTask() {
+        String taskTitle = taskTitleEditText.getText().toString();
+        String taskDetails = taskDetailsEditText.getText().toString();
+        String category = taskCategorySpinner.getSelectedItem().toString();
+        String date = dateTextView.getText().toString();
+        String time = timeTextView.getText().toString();
+
+        if (isEditMode) {
+            dbHandler.updateTask(taskId, taskTitle, taskDetails, category, date, time);
+        } else {
+            ToDoModel newTask = new ToDoModel(taskTitle, date, time, taskDetails, category);
             dbHandler.insertTask(newTask);
         }
-        Intent resultIntent = new Intent();
-        setResult(RESULT_OK, resultIntent);
+
+        setResult(RESULT_OK, new Intent());
         finish();
     }
+
+    @SuppressLint("DefaultLocale")
+    private void showDatePickerDialog() {
+        final Calendar calendar = Calendar.getInstance();
+        new DatePickerDialog(this, (view, year, month, dayOfMonth) ->
+                dateTextView.setText(String.format("%d/%d/%d", dayOfMonth, month + 1, year)),
+                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+                .show();
+    }
+
+    @SuppressLint("DefaultLocale")
     private void showTimePickerDialog() {
         final Calendar calendar = Calendar.getInstance();
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int minute = calendar.get(Calendar.MINUTE);
-
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
-                (view, selectedHour, selectedMinute) -> {
-                    @SuppressLint("DefaultLocale") String time = String.format("%02d:%02d", selectedHour, selectedMinute);
-                    timeText.setText(time);
-                }, hour, minute, true);
-        timePickerDialog.show();
+        new TimePickerDialog(this, (view, hourOfDay, minute) ->
+                timeTextView.setText(String.format("%02d:%02d", hourOfDay, minute)),
+                calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true)
+                .show();
     }
 
     @Override
