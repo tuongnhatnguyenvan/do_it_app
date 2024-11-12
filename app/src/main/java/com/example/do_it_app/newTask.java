@@ -91,11 +91,17 @@ public class newTask extends AppCompatActivity {
     }
 
     private void saveTask() {
-        String taskTitle = taskTitleEditText.getText().toString();
-        String taskDetails = taskDetailsEditText.getText().toString();
+        String taskTitle = taskTitleEditText.getText().toString().trim();
+        String taskDetails = taskDetailsEditText.getText().toString().trim();
         String category = taskCategorySpinner.getSelectedItem().toString();
         String date = dateTextView.getText().toString();
         String time = timeTextView.getText().toString();
+
+        if (taskTitle.isEmpty()) {
+            taskTitleEditText.setError("Vui lòng nhập tiêu đề cho công việc");
+            taskTitleEditText.requestFocus();
+            return;
+        }
 
         if (isEditMode) {
             dbHandler.updateTask(taskId, taskTitle, taskDetails, category, date, time);

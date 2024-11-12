@@ -98,10 +98,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/border_with_shadow"
+                android:gravity="center"
                 android:padding="10dp"
                 android:text="@string/set_date"
-                android:gravity="center"
-                android:background="?attr/selectableItemBackground"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 app:drawableEndCompat="@drawable/ic_calendar" />
@@ -117,15 +117,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/border_with_shadow"
+                android:gravity="center"
                 android:padding="10dp"
                 android:text="@string/set_time"
-                android:gravity="center"
-                android:background="?attr/selectableItemBackground"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 app:drawableEndCompat="@drawable/ic_clock" />
         </LinearLayout>
-
 
 
         <!-- Save Button -->
@@ -134,7 +133,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:backgroundTint="@android:color/holo_orange_dark"
+            android:backgroundTint="@color/colorPrimaryDark"
             android:text="@string/save_task"
             android:textColor="@android:color/white" />
 

@@ -11,81 +11,93 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:elevation="4dp"
+        android:padding="8dp">
 
+        <!-- CheckBox -->
         <CheckBox
             android:id="@+id/todoCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:buttonTint="@android:color/holo_green_dark"
             android:paddingEnd="8dp"
             tools:ignore="RtlSymmetry" />
 
+        <!-- Task Title -->
         <TextView
             android:id="@+id/taskTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_alignParentTop="true"
             android:layout_toEndOf="@id/todoCheckBox"
             android:text="@string/task_title"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/taskDetails"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/taskTitle"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_toEndOf="@id/todoCheckBox"
-            android:text="@string/task_details_go_here"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="14sp" />
-
+        <!-- Task Category (góc trên bên phải) -->
         <TextView
             android:id="@+id/taskCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/taskDetails"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_toEndOf="@id/todoCheckBox"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
             android:text="@string/category_work"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="@android:color/darker_gray"
             android:textSize="14sp" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <!-- Task Details -->
+        <TextView
+            android:id="@+id/taskDetails"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/taskCategory"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_below="@id/taskTitle"
+            android:layout_marginTop="4dp"
             android:layout_toEndOf="@id/todoCheckBox"
+            android:text="@string/task_details_go_here"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+        <!-- Date and Time layout -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/taskDetails"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
+            <!-- Date -->
             <TextView
                 android:id="@+id/reminderDate"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
                 android:text="@string/date_yyyy_mm_dd"
-                android:textColor="@android:color/holo_red_dark"
+                android:textColor="@android:color/darker_gray"
                 android:textSize="14sp" />
 
-            <Space
-                android:layout_width="16dp"
-                android:layout_height="wrap_content" />
+            <!-- Vertical Divider -->
+            <View
+                android:layout_width="1dp"
+                android:layout_height="16dp"
+                android:background="@android:color/darker_gray" />
 
+            <!-- Time -->
             <TextView
                 android:id="@+id/reminderTime"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
                 android:text="@string/time_hh_mm"
-                android:textColor="@android:color/holo_red_dark"
+                android:textColor="@android:color/darker_gray"
                 android:textSize="14sp" />
-
         </LinearLayout>
+
     </RelativeLayout>
+
 </androidx.cardview.widget.CardView>
