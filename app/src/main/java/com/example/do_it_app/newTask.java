@@ -111,8 +111,10 @@ public class newTask extends AppCompatActivity {
     @SuppressLint("DefaultLocale")
     private void showDatePickerDialog() {
         final Calendar calendar = Calendar.getInstance();
-        new DatePickerDialog(this, (view, year, month, dayOfMonth) ->
-                dateTextView.setText(String.format("%d/%d/%d", dayOfMonth, month + 1, year)),
+        new DatePickerDialog(this,
+                R.style.CustomDatePicker,
+                (view, year, month, dayOfMonth) ->
+                        dateTextView.setText(String.format("%d/%d/%d", dayOfMonth, month + 1, year)),
                 calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
                 .show();
     }
@@ -120,8 +122,10 @@ public class newTask extends AppCompatActivity {
     @SuppressLint("DefaultLocale")
     private void showTimePickerDialog() {
         final Calendar calendar = Calendar.getInstance();
-        new TimePickerDialog(this, (view, hourOfDay, minute) ->
-                timeTextView.setText(String.format("%02d:%02d", hourOfDay, minute)),
+        new TimePickerDialog(this,
+                R.style.CustomTimePicker,
+                (view, hourOfDay, minute) ->
+                        timeTextView.setText(String.format("%02d:%02d", hourOfDay, minute)),
                 calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true)
                 .show();
     }

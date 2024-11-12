@@ -16,5 +16,28 @@
         <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
 
+    <style name="CustomDatePicker" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+    </style>
+
+    <style name="CustomTimePicker" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+    </style>
+
+    <!-- Style cho nút OK -->
+    <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <!-- Style cho nút Cancel -->
+    <style name="NegativeButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+
     <style name="Theme.Do_it_app" parent="Base.Theme.Do_it_app" />
 </resources>
